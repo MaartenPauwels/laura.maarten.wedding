@@ -2,6 +2,9 @@
   "name": "maarten-laura-wedding",
   "main": "src/index.js",
   "compatibility_date": "2026-11-01",
+  "vars": {
+    "ADMIN_PASSWORD": "231800"
+  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
