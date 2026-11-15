@@ -5,7 +5,7 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/api/*", "/admin", "/admin/*"]
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "wedding-db", "database_id": "f36c3f64-f87e-4fe6-8722-250b20fa68e7" }

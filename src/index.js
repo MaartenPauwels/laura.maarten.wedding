@@ -28,7 +28,6 @@ async function rsvp(request, env) {
 }
 
 async function admin(request, env, p) {
-  if (!request.headers.get("Cf-Access-Jwt-Assertion")) return j({ error: "Geen toegang." }, 403);
   const m = request.method, db = env.DB;
   try {
     if (p === "list" && m === "GET") {
@@ -53,9 +52,26 @@ async function admin(request, env, p) {
   } catch { return j({ error: "Serverfout." }, 500); }
 }
 
+// Wachtwoordbeveiliging (HTTP Basic) voor /admin en /api/admin. Wachtwoord = secret ADMIN_PASSWORD.
+async function digest(s) { return new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s))); }
+async function authorized(request, env) {
+  if (!env.ADMIN_PASSWORD) return false; // niet ingesteld = altijd geweigerd
+  const h = request.headers.get("Authorization") || "";
+  if (!h.startsWith("Basic ")) return false;
+  let pass = "";
+  try { const d = new TextDecoder().decode(Uint8Array.from(atob(h.slice(6)), c => c.charCodeAt(0))); pass = d.slice(d.indexOf(":") + 1); } catch { return false; }
+  const [a, b] = await Promise.all([digest(pass), digest(env.ADMIN_PASSWORD)]);
+  let diff = 0; for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
+  return diff === 0;
+}
+const needLogin = () => new Response("Login vereist", { status: 401, headers: { "WWW-Authenticate": 'Basic realm="Beheer", charset="UTF-8"', "cache-control": "no-store" } });
+
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
+    if (pathname === "/admin" || pathname.startsWith("/admin/") || pathname.startsWith("/api/admin/")) {
+      if (!(await authorized(request, env))) return needLogin();
+    }
     if (pathname === "/api/rsvp" && request.method === "POST") return rsvp(request, env);
     if (pathname.startsWith("/api/admin/")) return admin(request, env, pathname.slice("/api/admin/".length));
     if (pathname.startsWith("/api/")) return j({ error: "Niet gevonden." }, 404);
