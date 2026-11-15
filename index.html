@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maarten &amp; Laura – Huwelijk</title>
+<meta name="description" content="Huwelijk van Maarten Pauwels en Laura Baten – info en inschrijven.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#2b2a28;--mute:#6b665f;--acc:#5f7550;--acc2:#8f5f40;--line:#e4dccf;--err:#b3261e;--ok:#2e6b3a}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1b19;--card:#26241f;--ink:#f1ece4;--mute:#b3aca1;--acc:#7f9a6e;--acc2:#d4a98a;--line:#3a372f;--err:#ff8a80;--ok:#8fd19b}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,serif}
+h1,h2,h3{font-weight:400;line-height:1.2}a{color:var(--acc2)}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:6px 18px;flex-wrap:wrap;justify-content:center;padding:12px;z-index:5;font:15px system-ui,sans-serif}
+nav a{text-decoration:none;color:var(--ink);padding:4px 2px}nav a:hover{text-decoration:underline}
+.hero{text-align:center;padding:72px 20px 56px}.hero small{letter-spacing:.25em;text-transform:uppercase;color:var(--mute);font:13px system-ui,sans-serif}
+.hero h1{font-size:clamp(2.4rem,8vw,4.6rem);margin:.3em 0}.hero p{font-size:1.2rem;margin:.2em 0}
+.btn{display:inline-block;background:var(--acc);color:#fff;border:0;border-radius:8px;padding:13px 26px;font:600 16px system-ui,sans-serif;cursor:pointer;text-decoration:none;margin-top:14px;min-height:44px}
+.btn.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn[disabled]{opacity:.6}
+section{max-width:860px;margin:0 auto;padding:44px 20px}section>h2{text-align:center;font-size:2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}.card h3{margin:0 0 6px;font-size:1.2rem;color:var(--acc2)}
+form{display:grid;gap:16px;font-family:system-ui,sans-serif}label,legend{font-weight:600;font-size:15px}
+.req{color:var(--err)}input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+fieldset{border:0;padding:0;margin:0;display:flex;gap:20px;flex-wrap:wrap}fieldset label,.chk{font-weight:400;display:flex;gap:8px;align-items:center}fieldset input,.chk input{width:auto}
+.err{color:var(--err);font-size:14px;min-height:1em}.msg{padding:14px;border-radius:8px;border:1px solid;display:none;font-family:system-ui,sans-serif;margin-bottom:14px}
+.msg.show{display:block}.msg.ok{color:var(--ok)}.msg.bad{color:var(--err)}.hp{position:absolute;left:-9999px}.small{font-size:14px;color:var(--mute)}
+footer{text-align:center;color:var(--mute);padding:30px 20px;font:14px system-ui,sans-serif}
+</style></head><body>
+<a class="hp" href="#main">Ga naar inhoud</a>
+<nav aria-label="Hoofdmenu"><a href="#home">Home</a><a href="#info">Praktisch</a><a href="#rsvp">Inschrijven</a><a href="#contact">Contact</a><a href="#privacy">Privacy</a></nav>
+<main id="main">
+<header class="hero" id="home"><small>Wij gaan trouwen</small><h1>Maarten &amp; Laura</h1>
+<p id="hDate"></p><p id="hPlace"></p><p class="small" id="hDead"></p><a class="btn" href="#rsvp">Schrijf je in</a></header>
+<section id="info"><h2>Praktische info</h2><div class="grid">
+<div class="card"><h3>Wanneer</h3><p id="iWhen"></p></div>
+<div class="card"><h3>Waar</h3><p id="iWhere"></p><a id="iMap" class="btn sec" target="_blank" rel="noopener">Route plannen</a></div>
+<div class="card"><h3>Ceremonie</h3><p id="iCer"></p></div>
+<div class="card"><h3>Receptie &amp; feest</h3><p id="iRec"></p></div>
+<div class="card"><h3>Parking</h3><p id="iPark"></p></div></div></section>
+
+<section id="rsvp"><h2>Inschrijven</h2><p style="text-align:center" id="rDead"></p>
+<div id="rMsg" class="msg" role="status" aria-live="polite" tabindex="-1"></div>
+<form id="f" novalidate><p class="small">Velden met <span class="req">*</span> zijn verplicht. Wil je je antwoord later wijzigen? Vul dan opnieuw hetzelfde e-mailadres in.</p>
+<div class="hp" aria-hidden="true"><label>Niet invullen<input id="website" tabindex="-1" autocomplete="off"></label></div>
+<div><label for="name">Volledige naam <span class="req">*</span></label><input id="name" autocomplete="name" maxlength="100"><div class="err" id="eName" role="alert"></div></div>
+<div><label for="email">E-mailadres <span class="req">*</span></label><input id="email" type="email" autocomplete="email" maxlength="150"><div class="err" id="eEmail" role="alert"></div></div>
+<div><fieldset><legend>Kom je naar ons feest? <span class="req">*</span></legend>
+<label><input type="radio" name="att" value="yes"> Ja, graag!</label><label><input type="radio" name="att" value="no"> Helaas niet</label></fieldset><div class="err" id="eAtt" role="alert"></div></div>
+<div id="cntW"><label for="cnt">Aantal personen (jezelf inbegrepen) <span class="req">*</span></label><input id="cnt" type="number" min="1" max="10" value="1" inputmode="numeric"><div class="err" id="eCnt" role="alert"></div></div>
+<div><label for="diet">Dieetwensen</label><select id="diet"><option value="">Geen</option><option>Vegetarisch</option><option>Veganistisch</option><option>Halal</option><option>Koosjer</option><option>Pescotarisch</option><option>Andere (zie opmerkingen)</option></select></div>
+<div><label for="alg">Allergieën of voedselbeperkingen</label><input id="alg" maxlength="200" placeholder="bv. noten, gluten, lactose"></div>
+<div><label for="com">Opmerkingen</label><textarea id="com" rows="3" maxlength="500"></textarea></div>
+<div><label class="chk"><input type="checkbox" id="cons"><span>Ik ga ermee akkoord dat mijn gegevens worden bewaard voor de organisatie van het huwelijk (zie <a href="#privacy">privacy</a>). <span class="req">*</span></span></label><div class="err" id="eCons" role="alert"></div></div>
+<button class="btn" id="sub" type="submit">Verstuur</button></form></section>
+
+<section id="contact"><h2>Vragen?</h2><p style="text-align:center" id="cInfo"></p></section>
+<section id="privacy"><h2>Privacyverklaring</h2><div class="card small" style="color:var(--ink)">
+<p><b>Welke gegevens?</b> Naam, e-mailadres, aanwezigheid, aantal personen, dieetwensen, allergieën en optionele opmerkingen. Niet meer.</p>
+<p><b>Waarom?</b> Uitsluitend om het huwelijk te organiseren (catering, zitplaatsen, opvolging van je antwoord). Rechtsgrond (AVG/GDPR): je toestemming. Allergieën kunnen gezondheidsgegevens zijn; het invullen is vrijwillig.</p>
+<p><b>Wie ziet dit?</b> Alleen Maarten en Laura. Je gegevens zijn niet publiek en worden niet verkocht of doorgegeven. Ze worden opgeslagen bij Cloudflare (EU-databasegebied, zie instellingen).</p>
+<p><b>Bewaartermijn en rechten:</b> we verwijderen je gegevens na het huwelijk. Je kan je antwoord wijzigen via het formulier of vragen om inzage of verwijdering via de contactgegevens.</p></div></section>
+</main>
+<footer>Maarten Pauwels &amp; Laura Baten</footer>
+<script>
+// ===== PAS HIER DE GEGEVENS AAN =====
+const CFG={date:"Datum volgt",time:"",venue:"Locatie volgt",address:"",deadline:"",email:"",
+ceremony:"Details over de ceremonie volgen.",reception:"Details over receptie en feest volgen.",parking:"Info over parking volgt."};
+const $=id=>document.getElementById(id);
+const fmt=d=>{try{return new Date(d+"T12:00").toLocaleDateString("nl-BE",{day:"numeric",month:"long",year:"numeric"})}catch(e){return d}};
+$("hDate").textContent=CFG.date+(CFG.time?" · "+CFG.time:"");$("hPlace").textContent=CFG.venue;
+$("iWhen").textContent=CFG.date+(CFG.time?" om "+CFG.time:"");$("iWhere").textContent=CFG.venue+(CFG.address?", "+CFG.address:"");
+$("iCer").textContent=CFG.ceremony;$("iRec").textContent=CFG.reception;$("iPark").textContent=CFG.parking;
+if(CFG.deadline){$("hDead").textContent=$("rDead").textContent="Laat ons weten voor "+fmt(CFG.deadline)}
+if(CFG.address)$("iMap").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(CFG.address);else $("iMap").style.display="none";
+if(CFG.email){const a=document.createElement("a");a.href="mailto:"+CFG.email;a.textContent=CFG.email;$("cInfo").append("Mail ons op ",a)}else $("cInfo").textContent="Contactgegevens volgen.";
+const msg=(t,k)=>{const m=$("rMsg");m.textContent=t;m.className="msg show "+k;m.scrollIntoView({block:"center"});m.focus()};
+document.querySelectorAll("input[name=att]").forEach(r=>r.onchange=()=>{$("cntW").style.display=document.querySelector("input[name=att]:checked").value==="no"?"none":""});
+function validate(){let ok=true;const e=(i,t)=>{$(i).textContent=t;if(t)ok=false};const a=document.querySelector("input[name=att]:checked"),c=+$("cnt").value;
+e("eName",$("name").value.trim().length<2?"Vul je volledige naam in.":"");
+e("eEmail",/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("email").value.trim())?"":"Vul een geldig e-mailadres in, bv. naam@voorbeeld.be.");
+e("eAtt",a?"":"Laat weten of je erbij bent.");e("eCnt",a&&a.value==="yes"&&!(Number.isInteger(c)&&c>=1&&c<=10)?"Kies een aantal tussen 1 en 10.":"");
+e("eCons",$("cons").checked?"":"Geef toestemming zodat we je antwoord kunnen bewaren.");return ok}
+let busy=false;
+async function send(update){const att=document.querySelector("input[name=att]:checked").value;
+const body={name:$("name").value.trim(),email:$("email").value.trim(),att,cnt:+$("cnt").value,diet:$("diet").value,alg:$("alg").value.trim(),com:$("com").value.trim(),consent:true,website:$("website").value,update};
+const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),20000);
+try{const r=await fetch("/api/rsvp",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body),signal:ctl.signal});
+const d=await r.json().catch(()=>({}));clearTimeout(t);return{status:r.status,d}}catch(x){return{status:0,d:{}}}}
+$("f").addEventListener("submit",async ev=>{ev.preventDefault();if(busy||!validate())return;busy=true;$("sub").disabled=true;$("sub").textContent="Bezig…";
+let r=await send(false);
+if(r.status===409&&confirm("Dit e-mailadres is al ingeschreven. Wil je je antwoord bijwerken?"))r=await send(true);
+if(r.d.ok)msg(r.d.updated?"Bedankt! Je antwoord is bijgewerkt.":"Bedankt, "+$("name").value.trim()+"! Je inschrijving is ontvangen. Wil je iets wijzigen? Vul het formulier opnieuw in met hetzelfde e-mailadres.","ok");
+else if(r.status===409)msg("Je inschrijving blijft ongewijzigd.","ok");
+else msg(r.d.error||"We konden je antwoord niet opslaan. Controleer je verbinding en probeer het zo opnieuw. Lukt het niet? Neem contact met ons op.","bad");
+busy=false;$("sub").disabled=false;$("sub").textContent="Verstuur"});
+</script></body></html>

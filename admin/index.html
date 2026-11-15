@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Beheer – inschrijvingen</title>
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#2b2a28;--line:#e4dccf;--acc:#5f7550}@media(prefers-color-scheme:dark){:root{--bg:#1c1b19;--card:#26241f;--ink:#f1ece4;--line:#3a372f;--acc:#7f9a6e}}
+body{margin:0;padding:20px;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}main{max-width:1000px;margin:auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}.stats div,.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.stats b{display:block;font-size:26px}
+textarea{width:100%;font:inherit;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px}
+button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:6px 6px 0 0;font:inherit}button.s{background:transparent;color:var(--ink);border:1px solid var(--line);padding:4px 10px;margin:0 4px 0 0}
+.tw{overflow-x:auto;margin-top:14px}table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+</style></head><body><main><h1>Inschrijvingen</h1>
+<div class="stats"><div><b id="sT">0</b>Antwoorden</div><div><b id="sA">0</b>Aanwezige personen</div><div><b id="sN">0</b>Afwezig</div><div><b id="sM">–</b>Nog geen antwoord</div></div>
+<div class="card"><label for="gl"><b>Gastenlijst</b> (één per lijn: <code>naam, e-mailadres</code>) – om te zien wie nog niet antwoordde</label>
+<textarea id="gl" rows="5"></textarea><button id="gs">Gastenlijst opslaan</button><button id="csv">Exporteer CSV</button><p id="miss"></p></div>
+<div class="tw"><table><thead><tr><th>Naam</th><th>E-mail</th><th>Aanwezig</th><th>Pers.</th><th>Dieet</th><th>Allergieën</th><th>Opmerking</th><th></th></tr></thead><tbody id="rows"></tbody></table></div></main>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let R=[],G=[];
+const api=async(p,m="GET",b)=>{const r=await fetch("/api/admin/"+p,{method:m,headers:{"content-type":"application/json"},body:b?JSON.stringify(b):undefined});if(!r.ok)throw new Error();return r.json()};
+async function load(){try{const d=await api("list");R=d.rsvps;G=d.guests;$("gl").value=G.map(g=>g.name+", "+g.email).join("\n");draw()}catch(e){alert("Laden mislukt. Ben je ingelogd via Cloudflare Access?")}}
+function draw(){const y=R.filter(r=>r.att==="yes");$("sT").textContent=R.length;$("sA").textContent=y.reduce((s,r)=>s+r.cnt,0);$("sN").textContent=R.length-y.length;
+const have=new Set(R.map(r=>r.email)),m=G.filter(g=>!have.has(g.email));$("sM").textContent=G.length?m.length:"–";$("miss").textContent=G.length?(m.length?"Nog geen antwoord: "+m.map(g=>g.name).join(", "):"Iedereen heeft geantwoord."):"";
+$("rows").innerHTML=R.map((r,i)=>`<tr><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td>${r.att==="yes"?"Ja":"Nee"}</td><td>${r.cnt}</td><td>${esc(r.diet)}</td><td>${esc(r.alg)}</td><td>${esc(r.com)}</td><td><button class="s" data-e="${i}">Wijzig</button><button class="s" data-d="${i}">Verwijder</button></td></tr>`).join("")}
+$("rows").onclick=async e=>{const t=e.target;try{if(t.dataset.d!==undefined&&confirm("Inschrijving verwijderen?")){await api("rsvp","DELETE",{email:R[t.dataset.d].email});load()}
+if(t.dataset.e!==undefined){const r=R[t.dataset.e],a=prompt("Aanwezig? (ja/nee)",r.att==="yes"?"ja":"nee");if(a===null)return;const c=a.toLowerCase().startsWith("n")?0:+prompt("Aantal personen",r.cnt)||1;
+await api("rsvp","PUT",{...r,att:c?"yes":"no",cnt:c});load()}}catch(x){alert("Actie mislukt.")}};
+$("gs").onclick=async()=>{try{await api("guests","POST",{text:$("gl").value});load()}catch(e){alert("Opslaan mislukt.")}};
+$("csv").onclick=()=>{const q=v=>'"'+String(v??"").replace(/"/g,'""').replace(/^([=+\-@])/,"'$1")+'"';
+const s="Naam,E-mail,Aanwezig,Personen,Dieet,Allergieen,Opmerking\n"+R.map(r=>[r.name,r.email,r.att,r.cnt,r.diet,r.alg,r.com].map(q).join(",")).join("\n");
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+s],{type:"text/csv"}));a.download="inschrijvingen.csv";a.click()};
+load();
+</script></body></html>

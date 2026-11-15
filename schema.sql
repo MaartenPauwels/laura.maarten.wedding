@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS rsvp (
+  email TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  att TEXT NOT NULL CHECK (att IN ('yes','no')),
+  cnt INTEGER NOT NULL DEFAULT 0,
+  diet TEXT DEFAULT '',
+  alg TEXT DEFAULT '',
+  com TEXT DEFAULT '',
+  updated TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS guests (
+  email TEXT PRIMARY KEY,
+  name TEXT NOT NULL
+);
