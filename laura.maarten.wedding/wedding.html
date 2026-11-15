@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maarten &amp; Laura – Wedding</title>
+<meta name="description" content="Wedding of Maarten Pauwels and Laura Baten – information and RSVP.">
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#2b2a28;--mute:#6b665f;--acc:#7a8f6b;--acc2:#b98a6b;--line:#e4dccf;--err:#b3261e;--ok:#2e6b3a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1c1b19;--card:#26241f;--ink:#f1ece4;--mute:#b3aca1;--acc:#a3b894;--acc2:#d4a98a;--line:#3a372f;--err:#ff8a80;--ok:#8fd19b}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,'Times New Roman',serif}
+h1,h2,h3{font-weight:400;line-height:1.2}a{color:var(--acc2)}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:6px 18px;flex-wrap:wrap;justify-content:center;padding:12px;z-index:5;font-family:system-ui,sans-serif;font-size:15px}
+nav a{text-decoration:none;color:var(--ink);padding:4px 2px}nav a:hover,nav a:focus{color:var(--acc2);text-decoration:underline}
+.hero{text-align:center;padding:72px 20px 56px}
+.hero small{letter-spacing:.25em;text-transform:uppercase;color:var(--mute);font-family:system-ui,sans-serif;font-size:13px}
+.hero h1{font-size:clamp(2.4rem,8vw,4.6rem);margin:.3em 0}.hero p{font-size:1.2rem;margin:.2em 0}
+.btn{display:inline-block;background:var(--acc);color:#fff;border:0;border-radius:8px;padding:13px 26px;font:600 16px system-ui,sans-serif;cursor:pointer;text-decoration:none;margin-top:18px;min-height:44px}
+.btn:hover{filter:brightness(.92)}.btn.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
+section{max-width:860px;margin:0 auto;padding:44px 20px}section>h2{text-align:center;font-size:2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}.card h3{margin:0 0 6px;font-size:1.2rem;color:var(--acc2)}
+form{display:grid;gap:16px;font-family:system-ui,sans-serif}label,legend{font-weight:600;font-size:15px}
+.req{color:var(--err)}input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+fieldset{border:0;padding:0;margin:0;display:flex;gap:20px;flex-wrap:wrap}fieldset label{font-weight:400;display:flex;gap:8px;align-items:center}fieldset input{width:auto}
+.err{color:var(--err);font-size:14px;min-height:1em}.msg{padding:14px;border-radius:8px;border:1px solid;display:none}
+.msg.show{display:block}.msg.ok{color:var(--ok)}.msg.bad{color:var(--err)}.hp{position:absolute;left:-9999px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0;font-family:system-ui,sans-serif}.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}.stats b{display:block;font-size:26px}
+.tw{overflow-x:auto;font-family:system-ui,sans-serif;font-size:14px}table{border-collapse:collapse;width:100%;min-width:640px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+footer{text-align:center;color:var(--mute);padding:30px 20px;font-size:14px;font-family:system-ui,sans-serif}
+.small{font-size:14px;color:var(--mute)}#admin{display:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body>
+<a class="hp" href="#main">Skip to content</a>
+<nav aria-label="Main"><a href="#home">Home</a><a href="#info">Details</a><a href="#rsvp">RSVP</a><a href="#contact">Contact</a><a href="#privacy">Privacy</a></nav>
+<main id="main">
+<header class="hero" id="home"><small>We’re getting married</small>
+<h1>Maarten <span aria-hidden="true">&amp;</span><span class="hp">and</span> Laura</h1>
+<p id="hDate"></p><p id="hPlace"></p><p class="small" id="hDead"></p>
+<a class="btn" href="#rsvp">RSVP now</a></header>
+
+<section id="info"><h2>Wedding details</h2><div class="grid">
+<div class="card"><h3>When</h3><p id="iWhen"></p></div>
+<div class="card"><h3>Where</h3><p id="iWhere"></p><a id="iMap" class="btn sec" target="_blank" rel="noopener">Get directions</a></div>
+<div class="card"><h3>Ceremony</h3><p id="iCer"></p></div>
+<div class="card"><h3>Reception</h3><p id="iRec"></p></div>
+<div class="card"><h3>Parking</h3><p id="iPark"></p></div></div></section>
+
+<section id="rsvp"><h2>RSVP</h2>
+<p style="text-align:center" id="rDead"></p>
+<div id="rMsg" class="msg" role="status" aria-live="polite"></div>
+<div id="rNote" class="msg bad show" style="display:none"></div>
+<form id="f" novalidate aria-describedby="rq"><p id="rq" class="small">Fields marked <span class="req">*</span> are required.</p>
+<div class="hp" aria-hidden="true"><label>Leave empty<input id="hpot" tabindex="-1" autocomplete="off"></label></div>
+<div><label for="name">Full name <span class="req">*</span></label><input id="name" autocomplete="name" required maxlength="100"><div class="err" id="eName" role="alert"></div></div>
+<div><fieldset aria-describedby="eAtt"><legend>Will you attend? <span class="req">*</span></legend>
+<label><input type="radio" name="att" value="yes"> Yes, with pleasure</label><label><input type="radio" name="att" value="no"> Sorry, can’t make it</label></fieldset><div class="err" id="eAtt" role="alert"></div></div>
+<div id="cntW"><label for="cnt">Number of attendees (including you) <span class="req">*</span></label><input id="cnt" type="number" min="1" max="10" value="1" inputmode="numeric"><div class="err" id="eCnt" role="alert"></div></div>
+<div><label for="diet">Dietary requirements</label><select id="diet"><option value="">None</option><option>Vegetarian</option><option>Vegan</option><option>Halal</option><option>Kosher</option><option>Pescatarian</option><option>Other (see comments)</option></select></div>
+<div><label for="alg">Allergies or food restrictions</label><input id="alg" maxlength="200" placeholder="e.g. nuts, gluten, lactose"></div>
+<div><label for="com">Additional comments</label><textarea id="com" rows="3" maxlength="500"></textarea></div>
+<p class="small">We use this information only to organise the wedding. See <a href="#privacy">privacy</a>.</p>
+<div><label style="font-weight:400;display:flex;gap:8px"><input type="checkbox" id="cons" style="width:auto;margin-top:6px"> <span>I agree that my answers are stored for organising this wedding. <span class="req">*</span></span></label><div class="err" id="eCons" role="alert"></div></div>
+<button class="btn" id="sub" type="submit">Send RSVP</button></form></section>
+
+<section id="admin"><h2>Registrations (couple only)</h2>
+<div class="stats"><div><b id="sT">0</b>Responses</div><div><b id="sA">0</b>Attending persons</div><div><b id="sN">0</b>Declined</div><div><b id="sM">0</b>Not yet replied</div></div>
+<div class="card" style="margin-bottom:14px"><label for="gl">Invited guest list (one name per line) – used to find who has not replied</label>
+<textarea id="gl" rows="4"></textarea><button class="btn sec" id="gSave" type="button">Save guest list</button> <button class="btn sec" id="csv" type="button">Export CSV</button>
+<p class="small" id="missing"></p></div>
+<div class="tw"><table><thead><tr><th>Name</th><th>Attending</th><th>#</th><th>Diet</th><th>Allergies</th><th>Comments</th><th></th></tr></thead><tbody id="rows"></tbody></table></div></section>
+
+<section id="contact"><h2>Questions?</h2><p style="text-align:center" id="cInfo"></p></section>
+
+<section id="privacy"><h2>Privacy statement</h2><div class="card small" style="color:var(--ink)">
+<p><b>What we collect:</b> name, attendance, number of guests, dietary needs, allergies/food restrictions and optional comments. Nothing more.</p>
+<p><b>Why:</b> solely to organise the wedding (catering, seating). Legal basis under the GDPR: your consent.</p>
+<p><b>Who sees it:</b> only Maarten and Laura. Data is not public and not sold or shared. Allergy information may count as health data; giving it is optional.</p>
+<p><b>Retention &amp; your rights:</b> data is deleted after the wedding. You can view, change or delete your reply at any time (RSVP form) or ask the couple to remove it.</p></div></section>
+</main>
+<footer>Maarten Pauwels &amp; Laura Baten · Made with love</footer>
+<script>
+// ===== Edit these details =====
+const CFG={date:"Date to be announced",time:"",venue:"Venue to be announced",address:"",deadline:"",email:"",
+ceremony:"Ceremony details will follow.",reception:"Reception details will follow.",parking:"Parking information will follow.",
+adminNote:""};
+const $=id=>document.getElementById(id);
+$("hDate").textContent=CFG.date+(CFG.time?" · "+CFG.time:"");$("hPlace").textContent=CFG.venue;
+$("hDead").textContent=CFG.deadline?"Please reply by "+CFG.deadline:"";
+$("iWhen").textContent=CFG.date+(CFG.time?" at "+CFG.time:"");$("iWhere").textContent=CFG.venue+(CFG.address?", "+CFG.address:"");
+$("iCer").textContent=CFG.ceremony;$("iRec").textContent=CFG.reception;$("iPark").textContent=CFG.parking;
+$("rDead").textContent=CFG.deadline?"Registration deadline: "+CFG.deadline:"";
+if(CFG.address){$("iMap").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(CFG.address)}else{$("iMap").style.display="none"}
+$("cInfo").innerHTML=CFG.email?'Email us at <a href="mailto:'+CFG.email+'">'+CFG.email+'</a>':"Contact details will follow.";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let db=null,uid=null,isAdmin=false,existing=false,busy=false,all=[];
+const msg=(t,k)=>{const m=$("rMsg");m.textContent=t;m.className="msg show "+k;m.focus&&m.scrollIntoView({block:"center"})};
+document.querySelectorAll('input[name=att]').forEach(r=>r.onchange=()=>{$("cntW").style.display=r.value==="no"&&r.checked?"none":""});
+function fill(d){$("name").value=d.name||"";const r=document.querySelector('input[name=att][value='+d.att+']');if(r){r.checked=true;r.onchange()}
+$("cnt").value=d.cnt||1;$("diet").value=d.diet||"";$("alg").value=d.alg||"";$("com").value=d.com||"";$("cons").checked=true}
+function validate(){let ok=true;const e=(i,t)=>{$(i).textContent=t;if(t)ok=false};
+const n=$("name").value.trim(),a=document.querySelector('input[name=att]:checked'),c=+$("cnt").value;
+e("eName",n.length<2?"Please enter your full name.":"");e("eAtt",a?"":"Please tell us whether you will attend.");
+e("eCnt",a&&a.value==="yes"&&(!Number.isInteger(c)||c<1||c>10)?"Enter a number between 1 and 10.":"");
+e("eCons",$("cons").checked?"":"Please agree so we can store your reply.");
+if(CFG.deadline&&new Date()>new Date(CFG.deadline+"T23:59:59")&&!existing){msg("Sorry, registration has closed. Please contact us.","bad");ok=false}
+return ok}
+$("f").addEventListener("submit",async ev=>{ev.preventDefault();if(busy||$("hpot").value)return;
+if(!validate()){const f=document.querySelector(".err:not(:empty)");f&&f.scrollIntoView({block:"center"});return}
+if(!db){msg("Registration is temporarily unavailable. Please try again later or contact us.","bad");return}
+if(existing&&!confirm("You already registered. Do you want to update your reply?"))return;
+busy=true;$("sub").disabled=true;$("sub").textContent="Sending…";
+const att=document.querySelector('input[name=att]:checked').value;
+const d={name:$("name").value.trim(),att,cnt:att==="yes"?+$("cnt").value:0,diet:$("diet").value,alg:$("alg").value.trim(),com:$("com").value.trim(),updated:new Date().toISOString()};
+try{await Promise.race([db.doc("rsvp/"+uid).set(d),new Promise((_,r)=>setTimeout(()=>r(new Error("timeout")),15000))]);
+msg(existing?"Thank you! Your reply has been updated.":"Thank you "+d.name+"! Your RSVP has been received. You can return here to change it.","ok");existing=true;$("sub").textContent="Update RSVP"}
+catch(x){msg("Sorry, we couldn’t save your reply. Nothing was lost on your side – please check your connection and try again.","bad");$("sub").textContent=existing?"Update RSVP":"Send RSVP"}
+busy=false;$("sub").disabled=false});
+function render(){const y=all.filter(r=>r.att==="yes"),n=all.filter(r=>r.att==="no");
+$("sT").textContent=all.length;$("sA").textContent=y.reduce((s,r)=>s+(r.cnt||0),0);$("sN").textContent=n.length;
+const names=new Set(all.map(r=>r.name.toLowerCase().trim()));
+const inv=$("gl").value.split("\n").map(s=>s.trim()).filter(Boolean),miss=inv.filter(x=>!names.has(x.toLowerCase()));
+$("sM").textContent=inv.length?miss.length:"–";$("missing").textContent=inv.length?(miss.length?"Not yet replied: "+miss.join(", "):"Everyone has replied."):"";
+$("rows").innerHTML=all.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.att==="yes"?"Yes":"No"}</td><td>${r.cnt||0}</td><td>${esc(r.diet)}</td><td>${esc(r.alg)}</td><td>${esc(r.com)}</td><td><button class="btn sec" style="margin:0;padding:6px 12px" data-id="${esc(r.id)}">Delete</button></td></tr>`).join("")}
+$("rows").onclick=async e=>{const id=e.target.dataset.id;if(id&&confirm("Remove this registration?")){try{await db.doc("rsvp/"+id).delete()}catch(x){alert("Could not delete.")}}};
+$("gSave").onclick=async()=>{try{await db.doc("admin/guestlist").set({text:$("gl").value});render();alert("Saved")}catch(x){alert("Could not save.")}};
+$("csv").onclick=async()=>{const q=v=>'"'+String(v??"").replace(/"/g,'""').replace(/^([=+\-@])/,"'$1")+'"';
+const csv="Name,Attending,Persons,Diet,Allergies,Comments\n"+all.map(r=>[r.name,r.att,r.cnt,r.diet,r.alg,r.com].map(q).join(",")).join("\n");
+try{const d=await claude.use("downloads");if(!d)throw 0;await d.save({filename:"rsvps.csv",data:"\ufeff"+csv})}catch(x){alert("Export unavailable here.")}};
+(async()=>{try{
+const u=await claude.use("user");db=await claude.use("db");
+if(!db||!u){$("rNote").style.display="block";$("rNote").textContent="Please open this page while signed in to claude.ai to register, or contact us directly.";return}
+uid=await u.id();isAdmin=u.canEdit();
+const s=await db.doc("rsvp/"+uid).get();if(s.exists){existing=true;fill(s.data());$("sub").textContent="Update RSVP";msg("You already registered – you can update your reply below.","ok")}
+if(isAdmin){$("admin").style.display="block";
+try{const g=await db.doc("admin/guestlist").get();if(g.exists)$("gl").value=g.data().text||""}catch(x){}
+db.collection("rsvp").onSnapshot(q=>{all=q.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{})}
+}catch(x){$("rNote").style.display="block";$("rNote").textContent="Registration is temporarily unavailable. Please try again later."}})();
+</script></body></html>
